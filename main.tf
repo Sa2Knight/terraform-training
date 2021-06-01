@@ -54,4 +54,10 @@ resource "aws_instance" "my_instance" {
     network_interface_id = aws_network_interface.my_network_interface.id
     device_index         = 0
   }
+
+  user_data = <<EOF
+    #! /bin/bash
+    yum install -y httpd
+    systemctl start httpd.service
+  EOF
 }
