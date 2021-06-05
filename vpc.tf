@@ -30,6 +30,11 @@ resource "aws_subnet" "private" {
   }
 }
 
+resource "aws_eip" "nat_gateway" {
+  vpc = true
+  depends_on = [ aws_internet_gateway.example ]
+}
+
 resource "aws_internet_gateway" "example" {
   vpc_id = aws_vpc.example.id
 
