@@ -26,6 +26,18 @@ resource "aws_s3_bucket" "public" {
   }
 }
 
+resource "aws_s3_bucket" "alb_log" {
+  bucket = "sandbox-sasaki-log-pragmatic-terraform"
+
+  lifecycle_rule {
+    enabled = true
+
+    expiration {
+      days = "180"
+    }
+  }
+}
+
 resource "aws_s3_bucket_public_access_block" "private" {
   bucket = aws_s3_bucket.private.id
   block_public_acls = true
