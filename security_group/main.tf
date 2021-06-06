@@ -10,7 +10,7 @@ resource "aws_security_group" "default" {
   vpc_id = var.vpc_id
 
   tags = {
-    name = var.name
+    Name = var.name
   }
 }
 
