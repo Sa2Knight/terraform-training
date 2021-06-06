@@ -1,10 +1,10 @@
-resource "aws_route53_zone" "example" {
-  name = "sasaki-terraform-training.tk"
+data "aws_route53_zone" "example" {
+  name = "shingo-sasaki.net"
 }
 
 resource "aws_route53_record" "example" {
-  zone_id = aws_route53_zone.example.zone_id
-  name = aws_route53_zone.example.name
+  zone_id = data.aws_route53_zone.example.zone_id
+  name = data.aws_route53_zone.example.name
   type = "A"
 
   alias {
@@ -18,12 +18,12 @@ resource "aws_route53_record" "example_certificate" {
   name = aws_acm_certificate.example.domain_validation_options[0].resource_record_name
   type = aws_acm_certificate.example.domain_validation_options[0].resource_record_type
   records = [aws_acm_certificate.example.domain_validation_options[0].resource_record_value]
-  zone_id = aws_route53_zone.example.zone_id
+  zone_id = data.aws_route53_zone.example.zone_id
   ttl = 60
 }
 
 resource "aws_acm_certificate" "example" {
-  domain_name = aws_route53_zone.example.name
+  domain_name = data.aws_route53_zone.example.name
   subject_alternative_names = []
   validation_method = "DNS"
 
