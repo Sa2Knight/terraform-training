@@ -31,13 +31,13 @@ resource "aws_s3_bucket" "operation" {
 }
 
 resource "aws_cloudwatch_log_group" "operation" {
-  name = "/operation"
+  name              = "/operation"
   retention_in_days = 180
 }
 
 resource "aws_ssm_document" "session_manager_run_shell" {
-  name = "SSM-SessionManagerRunShell"
-  document_type = "Session"
+  name            = "SSM-SessionManagerRunShell"
+  document_type   = "Session"
   document_format = "JSON"
 
   content = <<EOF
@@ -54,17 +54,17 @@ resource "aws_ssm_document" "session_manager_run_shell" {
 }
 
 module "ec2_for_ssm_role" {
-  source     = "./iam_role"
-  name       = "ec2-for-ssm"
+  source = "./iam_role"
+  name = "ec2-for-ssm"
   identifier = "ec2.amazonaws.com"
-  policy     = data.aws_iam_policy_document.ec2_for_ssm.json
+  policy = data.aws_iam_policy_document.ec2_for_ssm.json
 }
 
 data "aws_iam_policy_document" "ec2_for_ssm" {
   source_json = data.aws_iam_policy.ec2_for_ssm.policy
 
   statement {
-    effect    = "Allow"
+    effect = "Allow"
     resources = ["*"]
 
     actions = [
