@@ -3,12 +3,8 @@ provider "aws" {
   version = "2.20.0"
 }
 
-resource "aws_s3_bucket" "examples" {
-  count = 5
-  bucket = "sasaki-terraform-test-${count.index}"
-  acl    = "private"
+data "aws_caller_identity" "current" { }
 
-  tags = {
-    Name        = "My bucket ${count.index}"
-  }
+output "account_id" {
+  value = data.aws_caller_identity.current.account_id
 }
