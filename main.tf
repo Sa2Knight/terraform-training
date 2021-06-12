@@ -3,8 +3,8 @@ provider "aws" {
   version = "2.20.0"
 }
 
-data "aws_caller_identity" "current" { }
+data "aws_elb_service_account" "current" { }
 
 output "account_id" {
-  value = data.aws_caller_identity.current.account_id
+  value = data.aws_elb_service_account.current.id
 }
